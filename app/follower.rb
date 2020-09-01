@@ -33,5 +33,22 @@ class Follower
             f.age >= age
         end
     end
-    
+
+    def my_cults_slogans
+        self.cults.map do |c|
+            c.slogan
+        end
+    end
+
+    def self.most_active
+        self.all.max_by do |f|
+            f.cults.count
+        end
+    end
+
+    def self.top_ten
+        self.all.sort_by do |f|
+            f.cults.count
+        end.last(10)
+    end
 end

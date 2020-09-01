@@ -50,4 +50,35 @@ class Cult
             cult.founding_year == year
         end
     end
+
+    def average_age
+        self.followers.map do |f|
+            f.age
+        end.sum.to_f / self.followers.count
+    end
+
+    def my_followers_mottos
+        self.followers.map do |f|
+            f.life_motto
+        end
+    end
+
+    def self.least_popular
+        counts = self.all.map do |c|
+            c.followers.count
+        end
+
+        self.all.select do |c|
+            c.followers.count == counts.min
+        end
+    end
+
+    def self.most_common_location
+        locations = self.all.map do |c|
+            c.location
+        end
+        locations.max_by do |l|
+            locations.count(l)
+        end
+    end
 end
